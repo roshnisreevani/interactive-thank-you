@@ -1,122 +1,73 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+
+import scene1 from "./assets/scene1.png";
+import envelope from "./assets/envelope.png";
+import seal from "./assets/seal.png";
+
+import scene2 from "./assets/scene2envelope.png";
+import scene3 from "./assets/scene3peek.png";
+import letter1 from "./assets/letter1.png";
+import letter2 from "./assets/letter2.png";
+import end from "./assets/end.png";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [stage, setStage] = useState<
+    "intro" | "open" | "peek" | "letter" | "end"
+  >("intro");
+
+  function handleClick() {
+    if (stage === "intro") setStage("open");
+    else if (stage === "open") setStage("peek");
+    else if (stage === "peek") setStage("letter");
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <main className="page" onClick={handleClick}>
+      <img className="background" src={scene1} alt="" />
 
-      <div className="ticks"></div>
+      {stage === "intro" && (
+        <section className="intro-screen">
+          <img className="envelope-art" src={envelope} alt="Envelope" />
+          <img className="seal-art" src={seal} alt="Seal" />
+          <p className="hint">click to open</p>
+        </section>
+      )}
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      {stage === "open" && (
+        <img className="scene" src={scene2} alt="Envelope opening" />
+      )}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      {stage === "peek" && (
+        <img className="scene" src={scene3} alt="Letter peeking out" />
+      )}
+
+      {stage === "letter" && (
+        <section className="letter-screen" onClick={(e) => e.stopPropagation()}>
+          <div className="letter-scroll">
+            <img
+              className="letter-image"
+              src={letter1}
+              alt="Thank you letter page 1"
+            />
+            <img
+              className="letter-image"
+              src={letter2}
+              alt="Thank you letter page 2"
+            />
+
+            <div className="continue">
+              <button onClick={() => setStage("end")}>Continue →</button>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {stage === "end" && (
+        <img className="scene" src={end} alt="Final thank you" />
+      )}
+    </main>
+  );
 }
 
-export default App
+export default App;
