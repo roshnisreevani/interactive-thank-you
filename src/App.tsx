@@ -7,8 +7,10 @@ import seal from "./assets/seal.png";
 
 import scene2 from "./assets/scene2envelope.png";
 import scene3 from "./assets/scene3peek.png";
+
 import letter1 from "./assets/letter1.png";
 import letter2 from "./assets/letter2.png";
+
 import end from "./assets/end.png";
 
 function App() {
@@ -17,9 +19,13 @@ function App() {
   >("intro");
 
   function handleClick() {
-    if (stage === "intro") setStage("open");
-    else if (stage === "open") setStage("peek");
-    else if (stage === "peek") setStage("letter");
+    if (stage === "intro") {
+      setStage("open");
+    } else if (stage === "open") {
+      setStage("peek");
+    } else if (stage === "peek") {
+      setStage("letter");
+    }
   }
 
   return (
@@ -35,36 +41,72 @@ function App() {
       )}
 
       {stage === "open" && (
-        <img className="scene" src={scene2} alt="Envelope opening" />
+        <img
+          className="scene"
+          src={scene2}
+          alt="Envelope opening"
+        />
       )}
 
       {stage === "peek" && (
-        <img className="scene" src={scene3} alt="Letter peeking out" />
+        <img
+          className="scene"
+          src={scene3}
+          alt="Letter peeking out"
+        />
       )}
 
       {stage === "letter" && (
-        <section className="letter-screen" onClick={(e) => e.stopPropagation()}>
+        <section
+          className="letter-screen"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Floating Hearts */}
+          <div className="heart-particles">
+            <span>❤️</span>
+            <span>❤️</span>
+            <span>❤️</span>
+            <span>❤️</span>
+            <span>❤️</span>
+            <span>❤️</span>
+            <span>❤️</span>
+            <span>❤️</span>
+            <span>❤️</span>
+            <span>❤️</span>
+          </div>
+
+          {/* Decorative Effects */}
+          <div className="effects">
+            <div className="paper-plane">✈️</div>
+            </div>
+
+            
+
+            
+
+          {/* Letter */}
           <div className="letter-scroll">
             <img
               className="letter-image"
               src={letter1}
-              alt="Thank you letter page 1"
+              alt="Letter page 1"
             />
+
             <img
               className="letter-image"
               src={letter2}
-              alt="Thank you letter page 2"
+              alt="Letter page 2"
             />
-
-            <div className="continue">
-              <button onClick={() => setStage("end")}>Continue →</button>
-            </div>
           </div>
         </section>
       )}
 
       {stage === "end" && (
-        <img className="scene" src={end} alt="Final thank you" />
+        <img
+          className="scene"
+          src={end}
+          alt="Final thank you"
+        />
       )}
     </main>
   );

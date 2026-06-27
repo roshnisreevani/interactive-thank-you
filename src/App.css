@@ -92,7 +92,7 @@ body {
   z-index: 10;
   overflow-y: auto;
   overflow-x: hidden;
-  cursor: default;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24'%3E%3Ctext y='19' font-size='18'%3E%E2%99%A1%3C/text%3E%3C/svg%3E") 8 8, auto;
   background: transparent;
   animation: letterRise 1s ease forwards;
 }
@@ -105,6 +105,8 @@ body {
   align-items: center;
   gap: 32px;
   padding: 56px 0 90px;
+  position: relative;
+  z-index: 15;
 }
 
 .letter-image {
@@ -115,29 +117,80 @@ body {
   box-shadow: 0 24px 60px rgba(80, 45, 55, 0.22);
 }
 
-.continue {
-  display: flex;
-  justify-content: center;
-  padding: 8px 0 40px;
+/* Hearts */
+
+.heart-particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 12;
+  overflow: hidden;
 }
 
-.continue button {
-  border: 0;
-  border-radius: 999px;
-  padding: 14px 24px;
-  background: #8b5f6c;
-  color: #fff7fb;
-  font-family: Georgia, serif;
-  font-size: 1rem;
-  cursor: pointer;
-  box-shadow: 0 12px 28px rgba(80, 45, 55, 0.2);
+.heart-particles span {
+  position: absolute;
+  bottom: -40px;
+  color: rgba(139, 95, 108, 0.8);
+  font-size: 33px;
+  animation: floatHeart 9s linear infinite;
 }
 
-.continue button:hover {
-  transform: translateY(-2px);
+.heart-particles span:nth-child(1) {
+  left: 12%;
+  animation-delay: 0s;
+  font-size: 28px;
 }
 
-/* Paper airplane entrance */
+.heart-particles span:nth-child(2) {
+  left: 28%;
+  animation-delay: 2s;
+  font-size: 24px;
+}
+
+.heart-particles span:nth-child(3) {
+  left: 46%;
+  animation-delay: 4s;
+  font-size: 32px;
+}
+
+.heart-particles span:nth-child(4) {
+  left: 63%;
+  animation-delay: 1s;
+  font-size: 26px;
+}
+
+.heart-particles span:nth-child(5) {
+  left: 78%;
+  animation-delay: 3s;
+  font-size: 34px;
+}
+
+.heart-particles span:nth-child(6) {
+  left: 88%;
+  animation-delay: 5s;
+  font-size: 23px;
+}
+
+/* Effects */
+
+.effects {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 13;
+  overflow: hidden;
+}
+
+.paper-plane {
+  position: absolute;
+  left: -120px;
+  bottom: 24%;
+  font-size: 58px;
+  animation: paperPlane 8s ease-in-out 1s forwards;
+}
+
+
+/* Animations */
 
 @keyframes envelopeGlideIn {
   0% {
@@ -167,8 +220,6 @@ body {
     transform: translate(-50%, -50%) rotate(0deg) scale(1);
   }
 }
-
-/* Seal pop + stamp */
 
 @keyframes sealPopIn {
   0% {
@@ -232,5 +283,66 @@ body {
 
   to {
     transform: translateY(0);
+  }
+}
+
+@keyframes floatHeart {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.75;
+  }
+
+  100% {
+    transform: translateY(-115vh) translateX(30px) rotate(18deg);
+    opacity: 0;
+  }
+}
+
+@keyframes paperPlane {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(-15deg);
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  30% {
+    transform: translate(28vw, -18vh) rotate(-8deg);
+  }
+
+  55% {
+    transform: translate(58vw, -6vh) rotate(10deg);
+  }
+
+  75% {
+    transform: translate(85vw, -22vh) rotate(-6deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(120vw, -40vh) rotate(18deg);
+  }
+}
+
+@keyframes growFlower {
+  0% {
+    opacity: 0;
+    transform: translateY(80px) scale(.15);
+  }
+
+  65% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.15);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
